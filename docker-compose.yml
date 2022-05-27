@@ -12,8 +12,11 @@ services:
       - ./project/static:/project/static
     expose:
       - 8000
-    env_file:
-      - project/.env
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - SECRET_KEY=${SECRET_KEY}
 
   db:
     image: postgres:14.3
@@ -21,8 +24,6 @@ services:
       - pg_data:/var/lib/postgresql/data/
     expose:
       - 5432
-    env_file:
-      - project/.env
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
@@ -44,7 +45,7 @@ services:
     volumes:
       - ./project:/usr/src/app
     env_file:
-      - project/.env
+      - .env
     environment:
       - DEBUG=1
       - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
