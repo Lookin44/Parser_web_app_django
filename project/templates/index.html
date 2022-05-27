@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Список всех доменов{% endblock %}
+{% block header %}Список всех доменов{% endblock %}
+{% block content %}
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Task name</th>
+    <th scope="col">Domain</th>
+    <th scope="col">Create date</th>
+    <th scope="col">Update date</th>
+    <th scope="col">Country</th>
+    <th scope="col">Is dead</th>
+    <th scope="col">A</th>
+    <th scope="col">NS</th>
+    <th scope="col">CNAME</th>
+    <th scope="col">MX</th>
+    <th scope="col">TXT</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for row in page_obj %}
+    <tr>
+      <th scope="row">{{row.pk}}</th>
+      <td>{{row.task_name}}</td>
+      <td>{{row.domain}}</td>
+      <td>{{row.create_date}}</td>
+      <td>{{row.update_date}}</td>
+      <td>{{row.country}}</td>
+      <td>{{row.is_dead}}</td>
+      <td>{{row.a}}</td>
+      <td>{{row.ns}}</td>
+      <td>{{row.cname}}</td>
+      <td>{{row.mx}}</td>
+      <td>{{row.txt}}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% include 'paginator.html' %}
+
+{% endblock %}

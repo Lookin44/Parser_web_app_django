@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="../static/css/bootstrap.css" rel="stylesheet">
+  <title>{{ title }}</title>
+</head>
+
+<body>
+    <main role="main" class="container">
+        <div class="btn-group">
+            <a href="{% url 'main_page' %}" class="btn btn-primary">Main page</a>
+            <a href="{% url 'new_task' %}" class="btn btn-primary">New task</a>
+            <a href="{% url 'check_task' %}" class="btn btn-primary">Check task</a>
+        </div>
+        {% block content %}{% endblock %}
+    </main>
+<script src="../static/js/bootstrap.bundle.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Статус задач{% endblock %}
+{% block header %}Статус задач{% endblock %}
+{% block content %}
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Task name</th>
+    <th scope="col">Domain</th>
+    <th scope="col">Progress</th>
+    <th scope="col">Create</th>
+    <th scope="col">Update</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for row in page_obj %}
+    <tr>
+      <th scope="row">{{row.pk}}</th>
+      <td>{{row.name_from_celery}}</td>
+      <td>{{row.domain_from}}</td>
+      <td>{{row.is_success}}</td>
+      <td>{{row.created_at}}</td>
+      <td>{{row.updated_at}}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% include 'paginator.html' %}
+{% endblock %}
