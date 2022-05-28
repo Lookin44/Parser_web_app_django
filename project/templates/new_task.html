@@ -10,7 +10,7 @@
         <form method="post" action="{% url 'new_task' %}">
           {% csrf_token %}
           <div class="mb-3">
-            <label for="newTask" class="form-label">New task</label>
+            <label class="form-label">Enter URL</label>
             {{ form.domain_from }}
           </div>
           <div class="col-auto">
