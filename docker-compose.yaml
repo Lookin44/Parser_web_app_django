@@ -3,9 +3,10 @@ version: '3.9'
 services:
   django:
     build: ./project
-    command: sh -c "
-      python manage.py makemigrations
-      && python manage.py migrate  
+    restart: always
+    command: sh -c
+      "python manage.py makemigrations
+      && python manage.py migrate
       && gunicorn --bind 0.0.0.0:8000 core_app.wsgi"
     volumes:
       - ./project:/project
@@ -39,6 +40,9 @@ services:
       - ./project/static:/var/www/html/static
       - ./project/nginx-conf.d/:/etc/nginx/conf.d
 
+  redis:
+    image: redis:7
+
   celery:
     build: ./project
     command: celery -A parser_app worker  --loglevel=info
@@ -54,9 +58,6 @@ services:
     depends_on:
       - django
       - redis
-
-  redis:
-    image: redis:7
 
 volumes:
     pg_data:

@@ -2,7 +2,7 @@
 {% block title %}Статус задач{% endblock %}
 {% block header %}Статус задач{% endblock %}
 {% block content %}
-<table class="table table-striped">
+<table class="table table-bordered">
   <thead>
   <tr>
     <th scope="col">ID</th>
@@ -14,7 +14,7 @@
   </tr>
   </thead>
   <tbody>
-  {% for row in page_obj %}
+  {% for row in all_tasks %}
     <tr>
       <th scope="row">{{row.pk}}</th>
       <td>{{row.name_from_celery}}</td>
@@ -26,5 +26,5 @@
   {% endfor %}
   </tbody>
 </table>
-{% include 'paginator.html' %}
+
 {% endblock %}
