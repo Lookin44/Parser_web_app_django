@@ -2,16 +2,16 @@
 {% block title %}Статус задач{% endblock %}
 {% block header %}Статус задач{% endblock %}
 {% block content %}
-<table class="table table-bordered">
+<table class="table table-bordered" id="taskInfo">
   <thead>
-  <tr>
-    <th scope="col">ID</th>
-    <th scope="col">Task name</th>
-    <th scope="col">Domain</th>
-    <th scope="col">Progress</th>
-    <th scope="col">Create</th>
-    <th scope="col">Update</th>
-  </tr>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Task name</th>
+      <th scope="col">Domain</th>
+      <th scope="col">Progress</th>
+      <th scope="col">Create</th>
+      <th scope="col">Update</th>
+    </tr>
   </thead>
   <tbody>
   {% for row in all_tasks %}
@@ -19,12 +19,26 @@
       <th scope="row">{{row.pk}}</th>
       <td>{{row.name_from_celery}}</td>
       <td>{{row.domain_from}}</td>
-      <td>{{row.is_success}}</td>
+      <td>{% if row.is_success %}<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill " viewBox="0 0 16 16" style = "color:green;">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+          {% else %}<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle-fill" viewBox="0 0 16 16" style = "color:red;">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/></svg>
+          {% endif %}
+      </td>
       <td>{{row.created_at}}</td>
       <td>{{row.updated_at}}</td>
     </tr>
   {% endfor %}
   </tbody>
 </table>
+{% endblock content%}
+{% block js %}
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.5/umd/popper.min.js" integrity="sha512-8cU710tp3iH9RniUh6fq5zJsGnjLzOWLWdZqBMLtqaoZUA6AWIE34lwMB3ipUNiTBP5jEZKY95SfbNnQ8cCKvA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
-{% endblock %}
+  <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+  <script>$('#taskInfo').DataTable();</script>
+{% endblock js %}

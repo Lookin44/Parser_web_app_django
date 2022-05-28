@@ -37,21 +37,22 @@ def parse_data(celery_task_id: str, find_domain: str):
             ]
             for cur in all_domains:
                 open_api = requests.get(cur)
-                for item in open_api.json()['domains']:
-                    cur_parsing_res = InformationFromDomain.objects.create(
-                        task_name=new_task,
-                        domain=item['domain'],
-                        create_date=item['create_date'],
-                        update_date=item['update_date'],
-                        country=item['country'],
-                        is_dead=item['isDead'],
-                        a=item['A'],
-                        ns=item['NS'],
-                        cname=item['CNAME'],
-                        mx=item['MX'],
-                        txt=item['TXT']
-                    )
-                    cur_parsing_res.save()
+                if open_api.status_code == 200:
+                    for item in open_api.json()['domains']:
+                        cur_parsing_res = InformationFromDomain.objects.create(
+                            task_name=new_task,
+                            domain=item['domain'],
+                            create_date=item['create_date'],
+                            update_date=item['update_date'],
+                            country=item['country'],
+                            is_dead=item['isDead'],
+                            a=item['A'],
+                            ns=item['NS'],
+                            cname=item['CNAME'],
+                            mx=item['MX'],
+                            txt=item['TXT']
+                        )
+                        cur_parsing_res.save()
     except Exception as e:
         print("Error: ", e)
     else:

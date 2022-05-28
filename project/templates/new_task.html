@@ -2,14 +2,24 @@
 {% block title %}Новая задача{% endblock %}
 {% block header %}Новая задача{% endblock %}
 {% block content %}
-  <form method="post" class="row g-3" action="{% url 'new_task' %}">
-    {% csrf_token %}
-    <div class="col-auto">
-      <label class="visually-hidden">URL</label>
-      {{ form.domain_from }}
+<div class="container">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col">
+      <div class="position-center border rounded-2 p-3">
+        <form method="post" action="{% url 'new_task' %}">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="newTask" class="form-label">New task</label>
+            {{ form.domain_from }}
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3">Create task</button>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="col-auto">
-      <button type="submit" class="btn btn-primary mb-3">Create task</button>
-    </div>
-  </form>
+    <div class="col"></div>
+  </div>
+</div>
 {% endblock %}
