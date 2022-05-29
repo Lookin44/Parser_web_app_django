@@ -62,5 +62,8 @@ def parse_data(celery_task_id: str, find_domain: str):
 
 @app.task(name='create_task', bind=True)
 def create_task(self, domain):
-    parse_data(self.request.id, domain)
-    return True
+    result = requests.get(domain)
+    if result.status_code == 200:
+        parse_data(self.request.id, domain)
+        return True
+

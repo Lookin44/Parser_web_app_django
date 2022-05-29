@@ -14,12 +14,17 @@ def main_page(request):
 
 
 def new_task(request):
-    form = TaskForm(request.POST)
-    if form.is_valid():
-        create_task.delay(form.data['domain_from'])
-        form.save(commit=False)
-        return redirect('check_task')
-    return render(request, 'new_task.html', {'form': form})
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            create_task.delay(form.cleaned_data['domain_from'])
+            return redirect('check_task')
+        context = {
+            'form': form,
+            'error': form.errors
+        }
+        return render(request, 'new_task.html', context)
+    return render(request, 'new_task.html', {'form': TaskForm()})
 
 
 def check_task(request):
@@ -28,3 +33,4 @@ def check_task(request):
         'all_tasks': all_tasks,
     }
     return render(request, 'check_task.html', context)
+

@@ -7,6 +7,11 @@
     <div class="col"></div>
     <div class="col">
       <div class="position-center border rounded-2 p-3">
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+          {{ form.errors.domain_from }}
+        </div>
+        {% endif %}
         <form method="post" action="{% url 'new_task' %}">
           {% csrf_token %}
           <div class="mb-3">
